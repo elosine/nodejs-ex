@@ -78,38 +78,37 @@ var initDb = function(callback) {
 app.get('/', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
-  if (!db) {
-    initDb(function(err){});
-  }
-  if (db) {
-    var col = db.collection('counts');
-    // Create a document with request IP and current time of request
-    col.insert({ip: req.ip, date: Date.now()});
-    col.count(function(err, count){
-      if (err) {
-        console.log('Error running count. Message:\n'+err);
-      }
-      res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
-      res.render('ts.js', { pageCountMessage : count, dbInfo: dbDetails });
-    });
-  } else {
+  // if (!db) {
+  //   initDb(function(err){});
+  // }
+  // if (db) {
+  //   var col = db.collection('counts');
+  //   // Create a document with request IP and current time of request
+  //   col.insert({ip: req.ip, date: Date.now()});
+  //   col.count(function(err, count){
+  //     if (err) {
+  //       console.log('Error running count. Message:\n'+err);
+  //     }
+  //     res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
+  //   });
+  // } else {
     res.render('index.html', { pageCountMessage : null});
 });
 
-app.get('/pagecount', function (req, res) {
-  // try to initialize the db on every request if it's not already
-  // initialized.
-  if (!db) {
-    initDb(function(err){});
-  }
-  if (db) {
-    db.collection('counts').count(function(err, count ){
-      res.send('{ pageCount: ' + count + '}');
-    });
-  } else {
-    res.send('{ pageCount: -1 }');
-  }
-});
+// app.get('/pagecount', function (req, res) {
+//   // try to initialize the db on every request if it's not already
+//   // initialized.
+//   if (!db) {
+//     initDb(function(err){});
+//   }
+//   if (db) {
+//     db.collection('counts').count(function(err, count ){
+//       res.send('{ pageCount: ' + count + '}');
+//     });
+//   } else {
+//     res.send('{ pageCount: -1 }');
+//   }
+// });
 
 // error handling
 app.use(function(err, req, res, next){
@@ -117,11 +116,17 @@ app.use(function(err, req, res, next){
   res.status(500).send('Something bad happened!');
 });
 
-initDb(function(err){
-  console.log('Error connecting to Mongo. Message:\n'+err);
-});
+// initDb(function(err){
+//   console.log('Error connecting to Mongo. Message:\n'+err);
+// });
 
-app.use(express.static(path.join(__dirname, '/public')));
+// //Launch 'index.html'
+// app.get('/', function(req, res) {
+//   res.sendFile(path.join(__dirname + '/public/index.html'));
+// });
+//
+//
+// app.use(express.static(path.join(__dirname, '/public')));
 
 
 app.listen(port, ip);

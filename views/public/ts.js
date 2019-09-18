@@ -1,3 +1,6 @@
+document.write("<h1>Hello World!</h1><p>Have a nice day!</p>");
+
+
 var canvas = document.getElementById('myCanvas');
       var context = canvas.getContext('2d');
       var centerX = canvas.width / 2;

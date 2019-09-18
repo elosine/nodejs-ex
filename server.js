@@ -94,8 +94,6 @@ app.get('/', function (req, res) {
     });
   } else {
     res.render('index.html', { pageCountMessage : null});
-      res.render('ts.js', { pageCountMessage : null});
-  }
 });
 
 app.get('/pagecount', function (req, res) {
@@ -122,6 +120,9 @@ app.use(function(err, req, res, next){
 initDb(function(err){
   console.log('Error connecting to Mongo. Message:\n'+err);
 });
+
+app.use(express.static(path.join(__dirname, '/public')));
+
 
 app.listen(port, ip);
 console.log('Server running on http://%s:%s', ip, port);

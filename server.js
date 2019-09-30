@@ -19,7 +19,7 @@ var ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('/', function(req, res){
-  res.sendFile(path.join(__dirname, '/views/index.html'));
+  res.sendFile(path.join(__dirname, '/public/index.html'));
 });
 
 // error handling
